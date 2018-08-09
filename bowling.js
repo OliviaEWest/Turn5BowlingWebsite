@@ -3,10 +3,10 @@
  * TODO: Remove jQuery and use vanilla JS (partially done)
  */
 
-jQuery(function(){
+$(function(){
 	window.T5CodedByKids = window.T5CodedByKids || {};
 		
-	jQuery.extend(true, window.T5CodedByKids, {
+	$.extend(true, window.T5CodedByKids, {
 		init: function(){
 			var self = this;			
 			self.setReservedTimes(self.getToday());
@@ -17,23 +17,23 @@ jQuery(function(){
 		{
 			var self = this;
 			
-			jQuery('input[name="selected_date"]').on('change', function(){
-				var date = jQuery(this).val();
+			$('input[name="selected_date"]').on('change', function(){
+				var date = $(this).val();
 				self.setReservedTimes(date);
-				jQuery('fieldset[name="step2"]').removeClass('inactive').attr('disabled',false);
+				$('fieldset[name="step2"]').removeClass('inactive').attr('disabled',false);
 			});
 			
-			jQuery('input[type="radio"][name="starttime"]').on('change',function(){
-				var time = jQuery(this).val();
+			$('input[type="radio"][name="starttime"]').on('change',function(){
+				var time = $(this).val();
 				self.setLaneAvailability(time);
-				jQuery('fieldset[name="step3"]').removeClass('inactive').attr('disabled',false);
+				$('fieldset[name="step3"]').removeClass('inactive').attr('disabled',false);
 			});
 			
-			jQuery('input[name="lane"]').on('change', function(){
-				jQuery('fieldset[name="step4"]').removeClass('inactive').attr('disabled',false);
+			$('input[name="lane"]').on('change', function(){
+				$('fieldset[name="step4"]').removeClass('inactive').attr('disabled',false);
 			});
 			
-			jQuery('button[type="submit"]').on('click', function(e){
+			$('button[type="submit"]').on('click', function(e){
 				e.preventDefault();
 				self.submitForm();
 			});
@@ -42,7 +42,7 @@ jQuery(function(){
 				
 		disableLanes: function(){
 			var self = this;
-			jQuery('input[name="starttime"]').each(function(i, elem){
+			$('input[name="starttime"]').each(function(i, elem){
 				if(elem.dataset['lane-1'] == 'false' && elem.dataset['lane-2'] == 'false'){
 					elem.disabled = true;
 				}
@@ -51,7 +51,7 @@ jQuery(function(){
 		
 		disableLaneTime: function(laneValue, timeValue){
 			var self = this;
-			var element = jQuery('input[type="radio"][value="'+timeValue+'"]');
+			var element = $('input[type="radio"][value="'+timeValue+'"]');
 			element.attr('data-lane-'+laneValue, false);			
 		},
 		
@@ -65,12 +65,12 @@ jQuery(function(){
 		},
 		
 		resetForm: function(){
-			var form = jQuery('form[name="reservations"]');
+			var form = $('form[name="reservations"]');
 			form[0].reset();
 		},
 		
 		resetLanes: function(){
-			jQuery('input[name="starttime"]').each(function(i,elem){
+			$('input[name="starttime"]').each(function(i,elem){
 				elem.disabled = false;
 				elem.dataset['lane-1'] = true;
 				elem.dataset['lane-2'] = true;
@@ -78,7 +78,7 @@ jQuery(function(){
 		},
 				
 		setLaneAvailability: function(timeValue){
-			var element = jQuery('input[name="starttime"][value="'+timeValue+'"]');
+			var element = $('input[name="starttime"][value="'+timeValue+'"]');
 			var laneOneIsAvailable = element.attr('data-lane-1');
 			var laneTwoIsAvailable = element.attr('data-lane-2');
 			if(laneOneIsAvailable == 'false')
@@ -90,7 +90,7 @@ jQuery(function(){
 		setReservedTimes: function(date){
 			var self = this;
 			self.resetLanes();
-			jQuery.ajax({
+			$.ajax({
 				type: 'GET',
 				url: 'http://scripts.americanmuscle.com/cbk/ajax.php?date='+date
 			}).done(function(response){
@@ -100,8 +100,8 @@ jQuery(function(){
 		
 		submitForm: function(){
 			var self = this;
-			var formData = JSON.stringify(jQuery('form[name="reservations"]').serializeArray());
-			jQuery.ajax({
+			var formData = JSON.stringify($('form[name="reservations"]').serializeArray());
+			$.ajax({
 				type: 'POST',
 				url: 'http://scripts.americanmuscle.com/cbk/ajax.php',
 				data: formData
