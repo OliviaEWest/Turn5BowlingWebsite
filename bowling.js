@@ -99,7 +99,7 @@ $(function(){
 		},
 
 		submitForm: function(){
-			/*var self = this;
+			var self = this;
 			var formData = JSON.stringify($('form[name="reservations"]').serializeArray());
 			$.ajax({
 				type: 'POST',
@@ -111,8 +111,7 @@ $(function(){
 				confirm.classList.remove('hidden');
 				self.resetForm();
 				document.querySelector('form[name="reservations"]').classList.add('hidden');
-			});*/
-			console.log("ran");
+			});
 		},
 
 		updateTimes: function(times){
