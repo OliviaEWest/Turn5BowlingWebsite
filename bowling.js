@@ -20,17 +20,17 @@ $(function(){
 			$('input[name="selected_date"]').on('change', function(){
 				var date = $(this).val();
 				self.setReservedTimes(date);
-				$('fieldset[name="step2"]').removeClass('inactive').attr('disabled',false);
+				$('div[id="step2"]').removeClass('inactive').attr('disabled',false);
 			});
 
 			$('input[type="radio"][name="starttime"]').on('change',function(){
 				var time = $(this).val();
 				self.setLaneAvailability(time);
-				$('fieldset[name="step3"]').removeClass('inactive').attr('disabled',false);
+				$('div[id="step3"]').removeClass('inactive').attr('disabled',false);
 			});
 
 			$('input[name="lane"]').on('change', function(){
-				$('fieldset[name="step4"]').removeClass('inactive').attr('disabled',false);
+				$('div[id="step4"]').removeClass('inactive').attr('disabled',false);
 			});
 
 			$('input[type="submit"]').on('click', function(e){
