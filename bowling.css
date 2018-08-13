@@ -262,7 +262,7 @@ h3{
   display: block !important;
 }
 
-/*
+
 .inactive {
   pointer-events: none;
   color: lightgray;
@@ -270,6 +270,6 @@ h3{
 
 .inactive img {
   opacity: 0.4;
-   filter: alpha(opacity=40); /* msie */
+   filter: alpha(opacity=40); /* msie
 }
-*/
+    
