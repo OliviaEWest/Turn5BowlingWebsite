@@ -5,41 +5,41 @@
 
 $(function(){
 	window.T5CodedByKids = window.T5CodedByKids || {};
-		
+
 	$.extend(true, window.T5CodedByKids, {
 		init: function(){
-			var self = this;			
+			var self = this;
 			self.setReservedTimes(self.getToday());
 			self.attachListeners();
 		},
-		
+
 		attachListeners: function()
 		{
 			var self = this;
-			
+
 			$('input[name="selected_date"]').on('change', function(){
 				var date = $(this).val();
 				self.setReservedTimes(date);
-				$('fieldset[name="step2"]').removeClass('inactive').attr('disabled',false);
+				$('div[id="step2"]').removeClass('inactive').attr('disabled',false);
 			});
-			
+
 			$('input[type="radio"][name="starttime"]').on('change',function(){
 				var time = $(this).val();
 				self.setLaneAvailability(time);
-				$('fieldset[name="step3"]').removeClass('inactive').attr('disabled',false);
+				$('div[id="step3"]').removeClass('inactive').attr('disabled',false);
 			});
-			
+
 			$('input[name="lane"]').on('change', function(){
-				$('fieldset[name="step4"]').removeClass('inactive').attr('disabled',false);
+				$('div[id="step4"]').removeClass('inactive').attr('disabled',false);
 			});
-			
-			$('button[type="submit"]').on('click', function(e){
+
+			$('input[type="submit"]').on('click', function(e){
 				e.preventDefault();
 				self.submitForm();
 			});
-			
+
 		},
-				
+
 		disableLanes: function(){
 			var self = this;
 			$('input[name="starttime"]').each(function(i, elem){
@@ -48,13 +48,13 @@ $(function(){
 				}
 			});
 		},
-		
+
 		disableLaneTime: function(laneValue, timeValue){
 			var self = this;
 			var element = $('input[type="radio"][value="'+timeValue+'"]');
-			element.attr('data-lane-'+laneValue, false);			
+			element.attr('data-lane-'+laneValue, false);
 		},
-		
+
 		getToday: function(){
 			var today = new Date();
 			var month = today.getMonth()+1;
@@ -63,12 +63,12 @@ $(function(){
 			if(day < 10) day = '0'+day;
 			return today.getFullYear() + '-' + month + '-' + day;
 		},
-		
+
 		resetForm: function(){
 			var form = $('form[name="reservations"]');
 			form[0].reset();
 		},
-		
+
 		resetLanes: function(){
 			$('input[name="starttime"]').each(function(i,elem){
 				elem.disabled = false;
@@ -76,7 +76,7 @@ $(function(){
 				elem.dataset['lane-2'] = true;
 			});
 		},
-				
+
 		setLaneAvailability: function(timeValue){
 			var element = $('input[name="starttime"][value="'+timeValue+'"]');
 			var laneOneIsAvailable = element.attr('data-lane-1');
@@ -86,7 +86,7 @@ $(function(){
 			if(laneTwoIsAvailable == 'false')
 				document.querySelector('input[name="lane"][value="2"]').disabled = true;
 		},
-		
+
 		setReservedTimes: function(date){
 			var self = this;
 			self.resetLanes();
@@ -97,7 +97,7 @@ $(function(){
 				self.updateTimes(response);
 			});
 		},
-		
+
 		submitForm: function(){
 			var self = this;
 			var formData = JSON.stringify($('form[name="reservations"]').serializeArray());
@@ -113,7 +113,7 @@ $(function(){
 				document.querySelector('form[name="reservations"]').classList.add('hidden');
 			});
 		},
-				
+
 		updateTimes: function(times){
 			var self = this;
 			times['1'].forEach(function(h){
@@ -124,9 +124,9 @@ $(function(){
 			});
 			self.disableLanes();
 		}
-		
+
 	});
-	
-	
+
+
 	window.T5CodedByKids.init();
-}); 
+});
